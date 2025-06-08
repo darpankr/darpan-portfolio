@@ -1,37 +1,12 @@
+"use client" 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Github, ExternalLink } from "lucide-react"
+import { UseConfig } from "@/components/logic/UseConfig"
 
 export function Projects() {
-  const projects = [
-    {
-      title: "E-Commerce Platform",
-      description:
-        "A full-stack e-commerce solution with user authentication, payment processing, and admin dashboard.",
-      image: "/placeholder.svg?height=200&width=400",
-      technologies: ["Next.js", "JavaScript", "Stripe", "PostgreSQL"],
-      github: "https://github.com",
-      demo: "https://example.com",
-    },
-    {
-      title: "Task Management App",
-      description:
-        "A collaborative task management application with real-time updates and team collaboration features.",
-      image: "/placeholder.svg?height=200&width=400",
-      technologies: ["React", "Node.js", "Socket.io", "MongoDB"],
-      github: "https://github.com",
-      demo: "https://example.com",
-    },
-    {
-      title: "Weather Dashboard",
-      description: "A responsive weather dashboard with location-based forecasts and interactive charts.",
-      image: "/placeholder.svg?height=200&width=400",
-      technologies: ["Vite", "Chart.js", "Weather API", "Tailwind CSS"],
-      github: "https://github.com",
-      demo: "https://example.com",
-    },
-  ]
+  const { projects } = UseConfig()
 
   return (
     <section id="projects" className="py-20 bg-muted/50">
