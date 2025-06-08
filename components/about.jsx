@@ -1,7 +1,12 @@
+"use client";
 import { Card, CardContent } from "@/components/ui/card"
-
+import { UseConfig } from "@/components/logic/UseConfig"
 
 export function About() {
+
+  const { about } = UseConfig()
+
+  // console.log(about)
   return (
     <section id="about" className="py-20 bg-muted/50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,23 +28,20 @@ export function About() {
 
             <div className="space-y-6">
               <p className="text-lg text-muted-foreground">
-                I'm a passionate software engineer with over 2 years of experience creating digital solutions that
-                make a difference. I love turning complex problems into simple, beautiful, and intuitive solutions.
+                {about.bio}
               </p>
 
               <p className="text-lg text-muted-foreground">
-                When I'm not coding, you can find me exploring new technologies, contributing to open-source projects,
-                or sharing my knowledge with the developer community.
+                {about.hobbies}
               </p>
 
               <Card>
                 <CardContent className="p-6">
                   <h3 className="font-semibold mb-4">Quick Facts</h3>
                   <ul className="space-y-2 text-muted-foreground">
-                    <li>🎓 Computer Science Graduate</li>
-                    <li>💼 2+ Years of Professional Experience</li>
-                    <li>🌍 Based in Bangalore</li>
-                    <li>☕ Tea Enthusiast</li>
+                    {about.quickFacts && about.quickFacts.map((fact, idx) => (
+                      <li key={idx}>{fact}</li>
+                    ))}
                   </ul>
                 </CardContent>
               </Card>
