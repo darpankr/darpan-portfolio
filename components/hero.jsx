@@ -14,7 +14,7 @@ export function Hero() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6">
-            Hi, I'm <span className="text-primary">Your Name</span>
+            Hi, I'm <span className="text-primary">Darpan</span>
           </h1>
           <p className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Full Stack Developer passionate about creating beautiful, functional, and user-centered digital experiences.
