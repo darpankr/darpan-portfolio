@@ -27,7 +27,7 @@ export function Projects() {
       title: "Weather Dashboard",
       description: "A responsive weather dashboard with location-based forecasts and interactive charts.",
       image: "/placeholder.svg?height=200&width=400",
-      technologies: ["Vue.js", "Chart.js", "Weather API", "Tailwind CSS"],
+      technologies: ["Vite", "Chart.js", "Weather API", "Tailwind CSS"],
       github: "https://github.com",
       demo: "https://example.com",
     },
@@ -63,14 +63,14 @@ export function Projects() {
                   </div>
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" asChild>
-                      <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="h-4 w-4 mr-2" />
+                      <a className="flex justify-center items-center p-1 rounded-sm" href={project.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="h-4 w-4" />
                         Code
                       </a>
                     </Button>
                     <Button size="sm" asChild>
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4 mr-2" />
+                      <a className="flex justify-center items-center p-1 rounded-sm" href={project.demo} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="h-4 w-4" />
                         Demo
                       </a>
                     </Button>

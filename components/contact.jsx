@@ -46,15 +46,15 @@ export function Contact() {
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
                   <Mail className="h-5 w-5 text-primary" />
-                  <span>your.email@example.com</span>
+                  <span>darpankumarsing92@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <Phone className="h-5 w-5 text-primary" />
-                  <span>+1 (555) 123-4567</span>
+                  <span>+91 7908518100</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <MapPin className="h-5 w-5 text-primary" />
-                  <span>Your City, Country</span>
+                  <span>Bangalore, India</span>
                 </div>
               </div>
             </div>
