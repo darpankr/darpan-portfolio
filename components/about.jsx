@@ -1,51 +1,99 @@
-"use client";
-import { Card, CardContent } from "@/components/ui/card"
+"use client"
+
 import { UseConfig } from "@/components/logic/UseConfig"
 
 export function About() {
-
   const { about } = UseConfig()
 
-  // console.log(about)
   return (
-    <section id="about" className="py-20 bg-muted/50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">About Me</h2>
+    <section id="about" style={{ padding: "80px 28px" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+        <div className="section-label">about me</div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <div className=" size-64 mx-auto bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center">
-                <div className=" size-64 border border-white rounded-full overflow-hidden flex items-center justify-center shadow-lg">
-                  <img
-                    src="/profile.jpg"
-                    alt="Profile"
-                    className="object-cover w-full h-full"
-                  />
-                </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
+
+          <div>
+            <div
+              style={{
+                width: "180px",
+                height: "180px",
+                borderRadius: "12px",
+                border: "0.5px solid #1e2030",
+                overflow: "hidden",
+                position: "relative",
+                margin: "0 auto",
+              }}
+            >
+              <img
+                src="/profile.jpg"
+                alt="Profile"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                onError={(e) => {
+                  e.currentTarget.style.display = "none"
+                  e.currentTarget.parentElement.style.background = "#111318"
+                  e.currentTarget.parentElement.style.display = "flex"
+                  e.currentTarget.parentElement.style.alignItems = "center"
+                  e.currentTarget.parentElement.style.justifyContent = "center"
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "none",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: "32px",
+                  fontWeight: 700,
+                  color: "#22d3a0",
+                }}
+              >
+                DK
               </div>
             </div>
 
-            <div className="space-y-6">
-              <p className="text-lg text-muted-foreground">
-                {about.bio}
-              </p>
-
-              <p className="text-lg text-muted-foreground">
-                {about.hobbies}
-              </p>
-
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4">Quick Facts</h3>
-                  <ul className="space-y-2 text-muted-foreground">
-                    {about.quickFacts && about.quickFacts.map((fact, idx) => (
-                      <li key={idx}>{fact}</li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
+            <div style={{ marginTop: "24px" }}>
+              {(about.quickFacts || []).map((fact, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    padding: "8px 0",
+                    borderBottom: "0.5px solid #1e2030",
+                  }}
+                >
+                  <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#22d3a0", flexShrink: 0 }} />
+                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "12px", color: "#94a3b8" }}>
+                    {fact}
+                  </span>
+                </div>
+              ))}
             </div>
+          </div>
+
+          <div>
+            <p
+              style={{
+                fontSize: "15px",
+                color: "#94a3b8",
+                lineHeight: 1.8,
+                marginBottom: "20px",
+              }}
+            >
+              {about.bio}
+            </p>
+            <p
+              style={{
+                fontSize: "15px",
+                color: "#94a3b8",
+                lineHeight: 1.8,
+              }}
+            >
+              {about.hobbies}
+            </p>
           </div>
         </div>
       </div>

@@ -1,31 +1,39 @@
-import nodemailer from "nodemailer";
+// app/api/contact/route.js
+// Proxies contact form submissions to Spring Boot
+// Replaces the old nodemailer approach
 
 export async function POST(req) {
-  const { name, email, message } = await req.json();
-
-  // Configure your transporter (example for Gmail)
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER, // replace with your email
-      pass: process.env.EMAIL_PASS,    // use an App Password, not your main password
-    },
-  });
-
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080";
 
   try {
-    await transporter.sendMail({
-      from: `"${name}" <${email}>`,
-      to: process.env.EMAIL_USER, // your receiving email
-      subject: `Portfolio Contact from ${name}`,
-      text: message,
-      html: `<p><strong>Name:</strong> ${name}</p>
-             <p><strong>Email:</strong> ${email}</p>
-             <p><strong>Message:</strong><br/>${message}</p>`,
+    const body = await req.json();
+
+    const res = await fetch(`${backendUrl}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
     });
 
-    return Response.json({ success: true });
+    const json = await res.json();
+
+    if (!res.ok) {
+      // Spring Boot returned validation errors or bad request
+      return Response.json(
+        {
+          success: false,
+          error: json.message || "Failed to send message",
+          errors: json.errors,
+        },
+        { status: res.status }
+      );
+    }
+
+    return Response.json({ success: true, message: json.message });
   } catch (error) {
-    return Response.json({ success: false, error: error.message }, { status: 500 });
+    console.error("Contact form error:", error.message);
+    return Response.json(
+      { success: false, error: "An error occurred. Please try again." },
+      { status: 500 }
+    );
   }
 }
