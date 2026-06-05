@@ -1,75 +1,86 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { Menu, X } from "lucide-react"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId)
-    element?.scrollIntoView({ behavior: "smooth" })
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" })
     setIsOpen(false)
   }
 
+  const navItems = ["home", "about", "skills", "projects", "contact"]
+
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/80 backdrop-blur-md border-b" : "bg-transparent"
-      }`}
+      style={{
+        position: "fixed",
+        top: 0,
+        width: "100%",
+        zIndex: 50,
+        backgroundColor: scrolled ? "rgba(13,13,15,0.92)" : "transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        // borderBottom: scrolled ? "0.5px solid #1e2030" : "none",
+        transition: "all 0.3s",
+      }}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          <div className="text-2xl font-bold">Portfolio</div>
+      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 28px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", height: "56px" }}>
+          <span
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: "13px",
+              color: "#22d3a0",
+              letterSpacing: "0.05em",
+            }}
+          >
+            ~/darpan.dev
+          </span>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className="text-foreground hover:text-primary transition-colors"
-              >
+          <div style={{ display: "flex", alignItems: "center", gap: "32px" }} className="hidden md:flex">
+            {navItems.map((item) => (
+              <button key={item} onClick={() => scrollToSection(item)} className="nav-link">
                 {item}
               </button>
             ))}
-            <ThemeToggle />
           </div>
 
-          {/* Mobile Navigation Toggle */}
-          <div className="flex items-center md:hidden">
-            <ThemeToggle />
-            <Button variant="ghost" size="icon" className="ml-2" onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
-          </div>
+          <button
+            style={{ background: "none", border: "none", color: "#64748b", cursor: "pointer" }}
+            className="md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
 
-        {/* Mobile Navigation Menu */}
         {isOpen && (
-          <div className="md:hidden pb-4">
-            <div className="flex flex-col space-y-2">
-              {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className="text-left py-2 text-foreground hover:text-primary transition-colors"
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
+          <div
+            style={{
+              paddingBottom: "16px",
+              borderTop: "0.5px solid #1e2030",
+              marginTop: "4px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "12px",
+              paddingTop: "16px",
+            }}
+          >
+            {navItems.map((item) => (
+              <button key={item} onClick={() => scrollToSection(item)} className="nav-link" style={{ textAlign: "left" }}>
+                {item}
+              </button>
+            ))}
           </div>
         )}
       </div>
